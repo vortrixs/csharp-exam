@@ -4,16 +4,28 @@ using System.Text;
 
 namespace BusinessLogic.Entities
 {
-	class Storage
+	internal class Storage
 	{
+		private string Connection;
+
+		public Storage(string connection)
+		{
+			Connection = connection;
+		}
+
 		public int Create()
 		{
 			return 0;
 		}
 
-		public void Read()
+		public List<string[]> Read()
 		{
-			// return data
+			return new List<string[]>();
+		}
+
+		public List<string> Read(int id)
+		{
+			return new List<string>();
 		}
 
 		public int Update()

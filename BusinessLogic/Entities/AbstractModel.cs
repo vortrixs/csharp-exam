@@ -12,6 +12,8 @@ namespace BusinessLogic.Entities
 
 		abstract public void Read();
 
+		abstract public void Read(int id);
+
 		abstract public void Update();
 
 		abstract public void Delete();

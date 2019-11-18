@@ -1,7 +1,8 @@
 ﻿using BusinessLogic.Entities;
 using System;
+using System.Collections.Generic;
 
-namespace BusinessLogic
+namespace BusinessLogic.Models
 {
 	public class Member : AbstractModel
 	{
@@ -16,6 +17,11 @@ namespace BusinessLogic
 		}
 
 		public override void Read()
+		{
+			throw new NotImplementedException();
+		}
+
+		public override void Read(int id)
 		{
 			throw new NotImplementedException();
 		}

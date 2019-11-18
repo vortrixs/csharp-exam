@@ -22,6 +22,11 @@ namespace BusinessLogic.Models
 			throw new NotImplementedException();
 		}
 
+		public override void Read(int id)
+		{
+			throw new NotImplementedException();
+		}
+
 		public override void Update()
 		{
 			throw new NotImplementedException();
