@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitnessWebApi", "FitnessWebApi\FitnessWebApi.csproj", "{E818A74A-B785-4EAF-8C60-BC880E51EE60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitnessWebApi", "FitnessWebApi\FitnessWebApi.csproj", "{E818A74A-B785-4EAF-8C60-BC880E51EE60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{54851D36-80DD-4B52-96F3-E4A41DDFE08F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{E818A74A-B785-4EAF-8C60-BC880E51EE60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E818A74A-B785-4EAF-8C60-BC880E51EE60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E818A74A-B785-4EAF-8C60-BC880E51EE60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54851D36-80DD-4B52-96F3-E4A41DDFE08F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54851D36-80DD-4B52-96F3-E4A41DDFE08F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54851D36-80DD-4B52-96F3-E4A41DDFE08F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54851D36-80DD-4B52-96F3-E4A41DDFE08F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
