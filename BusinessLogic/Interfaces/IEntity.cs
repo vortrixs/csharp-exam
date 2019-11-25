@@ -6,5 +6,6 @@ namespace BusinessLogic.Interfaces
 {
 	interface IEntity
 	{
+		public string[] ToArray();
 	}
 }

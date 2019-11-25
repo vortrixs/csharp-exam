@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Entities;
+using BusinessLogic.Helpers;
 using BusinessLogic.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -7,29 +8,56 @@ namespace BusinessLogic.Models
 {
 	public class Member : IModel<MemberEntity>
 	{
-		public MemberEntity Create()
+		private readonly Storage storage;
+
+		public Member()
 		{
-			throw new NotImplementedException();
+			storage = new Storage();
+		}
+
+		public MemberEntity Create(MemberEntity entity)
+		{
+			storage.Create(entity.ToArray());
+
+			return entity;
 		}
 
 		public MemberEntity Read(int id)
 		{
-			throw new NotImplementedException();
+			// get data using storage.Read(id);
+
+			// Add data to MemberEntity
+			var member = new MemberEntity();
+
+			return member;
 		}
 
 		public List<MemberEntity> Read()
 		{
-			throw new NotImplementedException();
+			var list = new List<MemberEntity>();
+
+			foreach (string[] record in storage.Read())
+			{
+				var member = new MemberEntity();
+
+				// add data to member
+
+				list.Add(member);
+			}
+
+			return list;
 		}
 
-		public MemberEntity Update()
+		public MemberEntity Update(int id, MemberEntity entity)
 		{
-			throw new NotImplementedException();
+			storage.Update(id, entity.ToArray());
+
+			return entity;
 		}
 
-		public void Delete()
+		public void Delete(int id)
 		{
-			throw new NotImplementedException();
+			storage.Delete(id);
 		}
 	}
 }

@@ -6,14 +6,12 @@ namespace BusinessLogic.Helpers
 {
 	internal class Storage
 	{
-		private string Connection;
-
-		public Storage(string connection)
+		public Storage()
 		{
-			Connection = connection;
+			// Set up connection
 		}
 
-		public int Create()
+		public int Create(string[] data)
 		{
 			return 0;
 		}
@@ -23,17 +21,19 @@ namespace BusinessLogic.Helpers
 			return new List<string[]>();
 		}
 
-		public List<string> Read(int id)
+		public string[] Read(int id)
 		{
-			return new List<string>();
+			string[] arr = { "" };
+
+			return arr;
 		}
 
-		public int Update()
+		public int Update(int id, string[] data)
 		{
 			return 0;
 		}
 
-		public bool Delete()
+		public bool Delete(int id)
 		{
 			return true;
 		}

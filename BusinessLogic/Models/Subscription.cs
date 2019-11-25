@@ -8,7 +8,12 @@ namespace BusinessLogic.Models
 {
 	public class Subscription : IModel<SubscriptionEntity>
 	{
-		public SubscriptionEntity Create()
+		public SubscriptionEntity Create(SubscriptionEntity entity)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Delete(int id)
 		{
 			throw new NotImplementedException();
 		}
@@ -23,12 +28,7 @@ namespace BusinessLogic.Models
 			throw new NotImplementedException();
 		}
 
-		public SubscriptionEntity Update()
-		{
-			throw new NotImplementedException();
-		}
-
-		public void Delete()
+		public SubscriptionEntity Update(int id, SubscriptionEntity entity)
 		{
 			throw new NotImplementedException();
 		}
