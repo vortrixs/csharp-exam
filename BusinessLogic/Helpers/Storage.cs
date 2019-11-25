@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BusinessLogic.Entities
+namespace BusinessLogic.Helpers
 {
 	internal class Storage
 	{

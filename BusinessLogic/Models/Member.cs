@@ -1,32 +1,32 @@
-﻿using BusinessLogic.Entities;
+﻿using BusinessLogic.Interfaces;
 using System;
 using System.Collections.Generic;
 
 namespace BusinessLogic.Models
 {
-	public class Member : AbstractModel
+	public class Member : IModel
 	{
-		public override void Create()
+		public void Create()
 		{
 			throw new NotImplementedException();
 		}
 
-		public override void Delete()
+		public void Delete()
 		{
 			throw new NotImplementedException();
 		}
 
-		public override void Read()
+		public void Read(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public override void Read(int id)
+		public void Read()
 		{
 			throw new NotImplementedException();
 		}
 
-		public override void Update()
+		public void Update()
 		{
 			throw new NotImplementedException();
 		}

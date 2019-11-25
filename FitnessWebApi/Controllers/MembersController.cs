@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessLogic.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,16 +14,16 @@ namespace FitnessWebApi.Controllers
     {
         // GET: api/Members
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Member> Get()
         {
-            return new string[] { "value1", "value2" };
+			return new Member().Read();
         }
 
         // GET: api/Members/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public Member Get(int id)
         {
-            return "value";
+			return new Member().Read(id);
         }
 
         // POST: api/Members
