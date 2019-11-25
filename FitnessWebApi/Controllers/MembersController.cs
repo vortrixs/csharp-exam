@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BusinessLogic.Models;
+using BusinessLogic.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +15,7 @@ namespace FitnessWebApi.Controllers
     {
         // GET: api/Members
         [HttpGet]
-        public IEnumerable<Member> Get()
+        public MemberEntity Get()
         {
 			return new Member().Read();
         }

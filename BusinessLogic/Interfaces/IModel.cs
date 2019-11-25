@@ -4,15 +4,15 @@ using System.Text;
 
 namespace BusinessLogic.Interfaces
 {
-	interface IModel
+	interface IModel<IEntity>
 	{
 		public void Create();
 
 		// Returns a single record
-		public void Read(int id);
+		public IEntity Read(int id);
 
 		// Returns all records
-		public void Read();
+		public List<IEntity> Read();
 
 		public void Update();
 

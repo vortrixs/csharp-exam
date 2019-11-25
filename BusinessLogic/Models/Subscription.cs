@@ -1,11 +1,12 @@
-﻿using BusinessLogic.Interfaces;
+﻿using BusinessLogic.Entities;
+using BusinessLogic.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace BusinessLogic.Models
 {
-	public class Subscription : IModel
+	public class Subscription : IModel<SubscriptionEntity>
 	{
 		public void Create()
 		{
@@ -17,12 +18,12 @@ namespace BusinessLogic.Models
 			throw new NotImplementedException();
 		}
 
-		public void Read(int id)
+		public SubscriptionEntity Read(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void Read()
+		public List<SubscriptionEntity> Read()
 		{
 			throw new NotImplementedException();
 		}

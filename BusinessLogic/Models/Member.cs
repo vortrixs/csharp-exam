@@ -1,10 +1,11 @@
-﻿using BusinessLogic.Interfaces;
+﻿using BusinessLogic.Entities;
+using BusinessLogic.Interfaces;
 using System;
 using System.Collections.Generic;
 
 namespace BusinessLogic.Models
 {
-	public class Member : IModel
+	public class Member : IModel<MemberEntity>
 	{
 		public void Create()
 		{
@@ -16,12 +17,12 @@ namespace BusinessLogic.Models
 			throw new NotImplementedException();
 		}
 
-		public void Read(int id)
+		public MemberEntity Read(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void Read()
+		public List<MemberEntity> Read()
 		{
 			throw new NotImplementedException();
 		}

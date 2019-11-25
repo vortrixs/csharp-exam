@@ -1,10 +1,11 @@
-﻿using System;
+﻿using BusinessLogic.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace BusinessLogic.Entities
 {
-	class MemberEntity
+	public class MemberEntity : IEntity
 	{
 		public int ID { get; set; }
 
