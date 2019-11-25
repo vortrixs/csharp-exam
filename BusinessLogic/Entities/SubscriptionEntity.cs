@@ -8,17 +8,17 @@ namespace BusinessLogic.Entities
 	{
 		internal enum Types 
 		{ 
-			Day, 
-			Night, 
-			Weekend, 
-			AllInclusive,
+			Day = 0,
+			Night = 1,
+			Weekend = 2,
+			AllInclusive = 3,
 		}
 
 		internal enum PaymentPeriods
 		{
-			Monthly, 
-			Quarterly, 
-			Yearly,
+			Monthly = 0, 
+			Quarterly = 1, 
+			Yearly = 2,
 		}
 
 		public int ID { get; set; }
