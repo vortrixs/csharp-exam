@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessLogic.Entities;
+using BusinessLogic.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,34 +15,37 @@ namespace FitnessWebApi.Controllers
     {
         // GET: api/Subscriptions
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<SubscriptionEntity> Get()
         {
-            return new string[] { "value1", "value2" };
+			return new Subscription().Read();
         }
 
         // GET: api/Subscriptions/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public SubscriptionEntity Get(int id)
         {
-            return "value";
+			return new Subscription().Read(id);
         }
 
         // POST: api/Subscriptions
         [HttpPost]
-        public void Post([FromBody] string value)
+        public SubscriptionEntity Post([FromBody] SubscriptionEntity entity)
         {
+			return new Subscription().Create(entity);
         }
 
         // PUT: api/Subscriptions/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public SubscriptionEntity Put(int id, [FromBody] SubscriptionEntity entity)
         {
+			return new Subscription().Update(id, entity);
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+			new Subscription().Delete(id);
         }
     }
 }
