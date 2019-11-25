@@ -6,7 +6,7 @@ namespace BusinessLogic.Interfaces
 {
 	interface IModel<IEntity>
 	{
-		public void Create();
+		public IEntity Create();
 
 		// Returns a single record
 		public IEntity Read(int id);
@@ -14,7 +14,7 @@ namespace BusinessLogic.Interfaces
 		// Returns all records
 		public List<IEntity> Read();
 
-		public void Update();
+		public IEntity Update();
 
 		public void Delete();
 	}

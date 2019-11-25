@@ -7,12 +7,7 @@ namespace BusinessLogic.Models
 {
 	public class Member : IModel<MemberEntity>
 	{
-		public void Create()
-		{
-			throw new NotImplementedException();
-		}
-
-		public void Delete()
+		public MemberEntity Create()
 		{
 			throw new NotImplementedException();
 		}
@@ -27,7 +22,12 @@ namespace BusinessLogic.Models
 			throw new NotImplementedException();
 		}
 
-		public void Update()
+		public MemberEntity Update()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Delete()
 		{
 			throw new NotImplementedException();
 		}
