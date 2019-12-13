@@ -1,7 +1,10 @@
 ﻿using BusinessLogic.Entities;
-using BusinessLogic.Models;
+using BusinessLogic.Context;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.EntityFrameworkCore;
 
 namespace FitnessWebApi.Controllers
 {
@@ -9,39 +12,63 @@ namespace FitnessWebApi.Controllers
 	[ApiController]
 	public class MembersController : ControllerBase
 	{
+		private readonly FitnessApiContext context;
+		public MembersController(FitnessApiContext context)
+		{
+			this.context = context;
+		}
+
 		// GET: api/Members
 		[HttpGet]
 		public List<MemberEntity> Get()
 		{
-			return new Member().Read();
+			return context.Members.ToList();
 		}
 
 		// GET: api/Members/5
 		[HttpGet("{id}")]
 		public MemberEntity Get(int id)
 		{
-			return new Member().Read(id);
+			return context.Members.Find(id);
 		}
 
 		// POST: api/Members
 		[HttpPost]
 		public MemberEntity Post([FromBody] MemberEntity entity)
 		{
-			return new Member().Create(entity);
+			context.Members.Add(entity);
+
+			context.SaveChanges();
+
+			return entity;
 		}
 
-		// PUT: api/Members/5
-		[HttpPut("{id}")]
-		public MemberEntity Put(int id, [FromBody] MemberEntity entity)
+		// PATCH: api/Members/5
+		[HttpPatch("{id}")]
+		public MemberEntity Patch(int id, [FromBody] JsonPatchDocument<MemberEntity> entity)
 		{
-			return new Member().Update(id, entity);
+			var member = context.Members.Find(id);
+
+			entity.ApplyTo(member);
+
+			context.Members.Update(member);
+
+			context.SaveChanges();
+
+			return member;
 		}
 
-		// DELETE: api/ApiWithActions/5
+		// DELETE: api/Members/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public object Delete(int id)
 		{
-			new Member().Delete(id);
+			MemberEntity entity = context.Members.Find(id);
+
+			context.Members.Remove(entity);
+
+			context.SaveChanges();
+
+			return NoContent();
 		}
 	}
 }
