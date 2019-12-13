@@ -1,26 +1,19 @@
 ﻿using BusinessLogic.Enums;
-using BusinessLogic.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessLogic.Entities
 {
-	public class SubscriptionEntity : IEntity
+	public class SubscriptionEntity
 	{
-		public int ID { get; set; }
+		public int Id { get; private set; }
 
 		public SubscriptionTypes Type { get; set; }
 
 		public int Price { get; set; }
 
-		public SubscriptionPaymentPeriod PaymentPeriod { get; set; }
+		public PaymentPeriod PaymentPeriod { get; set; }
 
-		public int MemberEntityID { get; set; }
+		public int MemberId { get; set; }
 
-		public string[] ToArray()
-		{
-			throw new NotImplementedException();
-		}
+		public virtual MemberEntity Member { get; set; }
 	}
 }
