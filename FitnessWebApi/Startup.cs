@@ -1,18 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BusinessLogic.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.JsonPatch;
 using Newtonsoft.Json;
 
 namespace FitnessWebApi
@@ -34,6 +25,23 @@ namespace FitnessWebApi
 			services.AddControllersWithViews().AddNewtonsoftJson(
 				options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
 			);
+
+			services.AddSwaggerDocument(config =>
+			{
+				config.PostProcess = document =>
+				{
+					document.Info.Version = "v1";
+					document.Info.Title = "Fitness Membership API";
+					document.Info.Description = "A simple ASP.NET Core web API";
+					document.Info.TermsOfService = "None";
+					document.Info.Contact = new NSwag.OpenApiContact
+					{
+						Name = "Hans Erik Jepsen",
+						Email = "hanserikjepsen@hotmail.com",
+						Url = "http://he-jepsen.dk"
+					};
+				};
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +51,9 @@ namespace FitnessWebApi
 			{
 				app.UseDeveloperExceptionPage();
 			}
+
+			app.UseOpenApi();
+			app.UseSwaggerUi3();
 
 			app.UseHttpsRedirection();
 

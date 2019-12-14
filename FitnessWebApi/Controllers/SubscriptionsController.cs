@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Http;
 
 namespace FitnessWebApi.Controllers
 {
@@ -18,15 +19,18 @@ namespace FitnessWebApi.Controllers
 			this.context = context;
 		}
 
-        // GET: api/Subscriptions
-        [HttpGet]
+		// GET: api/Subscriptions
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[HttpGet]
         public List<SubscriptionEntity> Get()
         {
 			return context.Subscriptions.ToList();
         }
 
-        // GET: api/Subscriptions/5
-        [HttpGet("{id}")]
+		// GET: api/Subscriptions/5
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[HttpGet("{id}")]
         public object Get(int id)
         {
 			SubscriptionEntity sub = context.Subscriptions.Find(id);
@@ -37,8 +41,9 @@ namespace FitnessWebApi.Controllers
 			return sub;
         }
 
-        // POST: api/Subscriptions
-        [HttpPost]
+		// POST: api/Subscriptions
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[HttpPost]
         public SubscriptionEntity Post([FromBody] SubscriptionEntity entity)
         {
 			context.Subscriptions.Add(entity);
@@ -48,11 +53,16 @@ namespace FitnessWebApi.Controllers
 			return entity;
         }
 
-        // PATCH: api/Subscriptions/5
-        [HttpPatch("{id}")]
-        public SubscriptionEntity Patch(int id, [FromBody] JsonPatchDocument<SubscriptionEntity> entity)
+		// PATCH: api/Subscriptions/5
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[HttpPatch("{id}")]
+        public object Patch(int id, [FromBody] JsonPatchDocument<SubscriptionEntity> entity)
         {
 			SubscriptionEntity sub = context.Subscriptions.Find(id);
+
+			if (null == sub)
+				return NotFound();
 
 			entity.ApplyTo(sub);
 
@@ -63,11 +73,16 @@ namespace FitnessWebApi.Controllers
 			return sub;
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
+		// DELETE: api/ApiWithActions/5
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[HttpDelete("{id}")]
         public object Delete(int id)
         {
 			SubscriptionEntity sub = context.Subscriptions.Find(id);
+
+			if (null == sub)
+				return NotFound();
 
 			context.Subscriptions.Remove(sub);
 

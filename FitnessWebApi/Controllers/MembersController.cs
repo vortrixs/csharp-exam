@@ -3,12 +3,10 @@ using BusinessLogic.Context;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
-using System;
 using Microsoft.Data.Sqlite;
+using Microsoft.AspNetCore.Http;
 
 namespace FitnessWebApi.Controllers
 {
@@ -23,6 +21,7 @@ namespace FitnessWebApi.Controllers
 		}
 
 		// GET: api/Members
+		[ProducesResponseType(StatusCodes.Status200OK)]
 		[HttpGet]
 		public List<MemberEntity> Get([FromQuery] string sort)
 		{
@@ -43,6 +42,8 @@ namespace FitnessWebApi.Controllers
 		}
 
 		// GET: api/Members/5
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[HttpGet("{id}")]
 		public object Get(int id)
 		{
@@ -55,6 +56,7 @@ namespace FitnessWebApi.Controllers
 		}
 
 		// POST: api/Members
+		[ProducesResponseType(StatusCodes.Status200OK)]
 		[HttpPost]
 		public MemberEntity Post([FromBody] MemberEntity entity)
 		{
@@ -66,10 +68,15 @@ namespace FitnessWebApi.Controllers
 		}
 
 		// PATCH: api/Members/5
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[HttpPatch("{id}")]
-		public MemberEntity Patch(int id, [FromBody] JsonPatchDocument<MemberEntity> entity)
+		public object Patch(int id, [FromBody] JsonPatchDocument<MemberEntity> entity)
 		{
-			var member = context.Members.Find(id);
+			MemberEntity member = context.Members.Find(id);
+
+			if (null == member)
+				return NotFound();
 
 			entity.ApplyTo(member);
 
@@ -81,10 +88,15 @@ namespace FitnessWebApi.Controllers
 		}
 
 		// DELETE: api/Members/5
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[HttpDelete("{id}")]
 		public object Delete(int id)
 		{
 			MemberEntity member = context.Members.Find(id);
+
+			if (null == member)
+				return NotFound();
 
 			context.Members.Remove(member);
 
@@ -94,6 +106,8 @@ namespace FitnessWebApi.Controllers
 		}
 
 		// GET: api/Members
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		[HttpGet("search")]
 		public object Search([FromQuery] Dictionary<string, string> parameters)
 		{
