@@ -3,8 +3,12 @@ using BusinessLogic.Context;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+using System;
+using Microsoft.Data.Sqlite;
 
 namespace FitnessWebApi.Controllers
 {
@@ -27,9 +31,14 @@ namespace FitnessWebApi.Controllers
 
 		// GET: api/Members/5
 		[HttpGet("{id}")]
-		public MemberEntity Get(int id)
+		public object Get(int id)
 		{
-			return context.Members.Find(id);
+			var member = context.Members.Find(id);
+
+			if (null == member)
+				return NotFound();
+
+			return member;
 		}
 
 		// POST: api/Members
@@ -69,6 +78,38 @@ namespace FitnessWebApi.Controllers
 			context.SaveChanges();
 
 			return NoContent();
+		}
+
+		// GET: api/Members
+		[HttpGet("search")]
+		public object Search([FromQuery] Dictionary<string, string> parameters)
+		{
+			if (0 == parameters.Count())
+				return BadRequest();
+
+			List<SqliteParameter> sqlParams = new List<SqliteParameter>();
+
+			string search = "";
+
+			foreach (KeyValuePair<string,string> row in parameters)
+			{
+				string append = " AND ";
+
+				if (false == search.ToString().Contains("WHERE"))
+				{
+					append = " WHERE ";
+				}
+
+				sqlParams.Add(new SqliteParameter($"@filter{row.Key}Value", row.Value));
+
+				search += append + $"{row.Key}=@filter{row.Key}Value";
+			}
+
+			IQueryable<MemberEntity> sql = context.Members.FromSqlRaw(
+				"SELECT * FROM `members`" + search, sqlParams.ToArray()
+			);
+
+			return sql.ToList();
 		}
 	}
 }
