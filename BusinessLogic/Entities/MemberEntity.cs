@@ -17,7 +17,7 @@ namespace BusinessLogic.Entities
 
 		public int ZipCode { get; set; }
 
-		public DateTime MembershipStart { get; set; } = new DateTime();
+		public DateTime MembershipStart { get; set; } = DateTime.Now;
 
 		public DateTime? MembershipEnd { get; set; } = null;
 
