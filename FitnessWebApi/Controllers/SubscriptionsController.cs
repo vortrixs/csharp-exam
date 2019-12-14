@@ -1,51 +1,79 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BusinessLogic.Entities;
-using BusinessLogic.Models;
-using Microsoft.AspNetCore.Http;
+﻿using BusinessLogic.Entities;
+using BusinessLogic.Context;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace FitnessWebApi.Controllers
 {
-    [Route("api/[controller]")]
+	[Route("api/[controller]")]
     [ApiController]
     public class SubscriptionsController : ControllerBase
     {
+		private readonly FitnessApiContext context;
+		
+		public SubscriptionsController(FitnessApiContext context)
+		{
+			this.context = context;
+		}
+
         // GET: api/Subscriptions
         [HttpGet]
         public List<SubscriptionEntity> Get()
         {
-			return new Subscription().Read();
+			return context.Subscriptions.ToList();
         }
 
         // GET: api/Subscriptions/5
         [HttpGet("{id}")]
-        public SubscriptionEntity Get(int id)
+        public object Get(int id)
         {
-			return new Subscription().Read(id);
+			SubscriptionEntity sub = context.Subscriptions.Find(id);
+
+			if (null == sub)
+				return NotFound();
+
+			return sub;
         }
 
         // POST: api/Subscriptions
         [HttpPost]
         public SubscriptionEntity Post([FromBody] SubscriptionEntity entity)
         {
-			return new Subscription().Create(entity);
+			context.Subscriptions.Add(entity);
+
+			context.SaveChanges();
+
+			return entity;
         }
 
-        // PUT: api/Subscriptions/5
-        [HttpPut("{id}")]
-        public SubscriptionEntity Put(int id, [FromBody] SubscriptionEntity entity)
+        // PATCH: api/Subscriptions/5
+        [HttpPatch("{id}")]
+        public SubscriptionEntity Patch(int id, [FromBody] JsonPatchDocument<SubscriptionEntity> entity)
         {
-			return new Subscription().Update(id, entity);
+			SubscriptionEntity sub = context.Subscriptions.Find(id);
+
+			entity.ApplyTo(sub);
+
+			context.Subscriptions.Update(sub);
+
+			context.SaveChanges();
+
+			return sub;
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public object Delete(int id)
         {
-			new Subscription().Delete(id);
+			SubscriptionEntity sub = context.Subscriptions.Find(id);
+
+			context.Subscriptions.Remove(sub);
+
+			context.SaveChanges();
+
+			return NoContent();
         }
     }
 }

@@ -24,16 +24,29 @@ namespace FitnessWebApi.Controllers
 
 		// GET: api/Members
 		[HttpGet]
-		public List<MemberEntity> Get()
+		public List<MemberEntity> Get([FromQuery] string sort)
 		{
-			return context.Members.ToList();
+			List<MemberEntity> members = context.Members.ToList();
+
+			switch (sort)
+			{
+				case "age":
+					members = members.OrderBy(m => m.Age).ToList();
+					break;
+				case "zipcode":
+					members = members.OrderBy(m => m.ZipCode).ToList();
+					break;
+			}
+				
+
+			return members;
 		}
 
 		// GET: api/Members/5
 		[HttpGet("{id}")]
 		public object Get(int id)
 		{
-			var member = context.Members.Find(id);
+			MemberEntity member = context.Members.Find(id);
 
 			if (null == member)
 				return NotFound();
@@ -71,9 +84,9 @@ namespace FitnessWebApi.Controllers
 		[HttpDelete("{id}")]
 		public object Delete(int id)
 		{
-			MemberEntity entity = context.Members.Find(id);
+			MemberEntity member = context.Members.Find(id);
 
-			context.Members.Remove(entity);
+			context.Members.Remove(member);
 
 			context.SaveChanges();
 
